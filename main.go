@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"hydroponic-be/internal/handler"
+	"hydroponic-be/internal/middleware"
+	"hydroponic-be/internal/routes"
 	dbstore "hydroponic-be/internal/store"
 	"hydroponic-be/internal/util/logger"
 	"os"
@@ -28,9 +31,12 @@ func main() {
 		return
 	}
 
-	prepare()
+	handlers, middlewares := prepare()
 
 	srv := gin.Default()
+	srv.Use(middleware.CORS())
+
+	routes.Build(srv, handlers, middlewares)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -49,10 +55,18 @@ func main() {
 	}
 }
 
-func prepare() {
+func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	logger.Info("main", "Initializing dependencies...", nil)
 
 	_ = dbstore.Get()
 
+	logger.Info("main", "Initializing handlers...", nil)
+	plantHandler := handler.NewPlantHandler(handler.PlantHandlerConfig{})
+
+	handlers = routes.Handlers{
+		Plant: plantHandler,
+	}
+
+	logger.Info("main", "Application initialized successfully.", nil)
 	return
 }

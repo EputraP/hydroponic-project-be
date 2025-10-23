@@ -1,15 +1,23 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"hydroponic-be/internal/handler"
+
+	"github.com/gin-gonic/gin"
+)
 
 type Handlers struct {
-	// Define your route handlers here
+	Plant *handler.PlantHandler
 }
 
 type Middlewares struct {
-	// Define your middlewares here
 }
 
-func Build(srv *gin.Engine, handlers Handlers, middlewares Middlewares) {
+func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
+
+	plant := srv.Group("/plant")
+	plant.POST("/create", h.Plant.CreatePlant)
+	plant.GET("/", h.Plant.GetPlants)
+	plant.DELETE("/:profileId", h.Plant.DeletePlant)
 
 }

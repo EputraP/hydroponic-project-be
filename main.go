@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"hydroponic-be/internal/routes"
+	dbstore "hydroponic-be/internal/store"
 	"hydroponic-be/internal/util/logger"
 	"os"
 
@@ -28,6 +28,8 @@ func main() {
 		return
 	}
 
+	prepare()
+
 	srv := gin.Default()
 
 	port := os.Getenv("PORT")
@@ -47,7 +49,10 @@ func main() {
 	}
 }
 
-func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
+func prepare() {
+	logger.Info("main", "Initializing dependencies...", nil)
+
+	_ = dbstore.Get()
 
 	return
 }

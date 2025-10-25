@@ -18,6 +18,6 @@ func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 	plant := srv.Group("/plant")
 	plant.POST("/create", h.Plant.CreatePlant)
 	plant.GET("/", h.Plant.GetPlants)
-	plant.DELETE("/:profileId", h.Plant.DeletePlant)
+	plant.DELETE("/:plantId", h.Plant.DeletePlant)
 
 }

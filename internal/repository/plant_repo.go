@@ -11,7 +11,8 @@ import (
 
 type PlantRepository interface {
 	CreateFarm() string
-	GetPlants() (*[]model.Plants, error)
+	GetPlants() (*[]model.Plant, error)
+	DeletePlant(inputModel *model.Plant) (*model.OnlyIdResponse, error)
 }
 
 type plantRepository struct {
@@ -28,12 +29,12 @@ func (r *plantRepository) CreateFarm() string {
 	return "Adili Jokowi"
 }
 
-func (r *plantRepository) GetPlants() (*[]model.Plants, error) {
+func (r *plantRepository) GetPlants() (*[]model.Plant, error) {
 
 	logger.Info("plantRepository", "Fetching GetPlants", map[string]string{})
 
-	queryResult := &model.Plants{}
-	result := []model.Plants{}
+	queryResult := &model.Plant{}
+	result := []model.Plant{}
 
 	sqlScript := `select
 					id,
@@ -101,4 +102,43 @@ func (r *plantRepository) GetPlants() (*[]model.Plants, error) {
 	})
 	return &result, nil
 
+}
+
+func (r *plantRepository) DeletePlant(inputModel *model.Plant) (*model.OnlyIdResponse, error) {
+	logger.Info("plantRepository", "Deleting plant", map[string]string{
+		"plantID": inputModel.ID.String(),
+	})
+
+	result := &model.OnlyIdResponse{}
+
+	sqlScript := `UPDATE hydroponic_system.plants 
+				SET deleted_at = %s 
+				WHERE id = '%s' 
+				RETURNING id`
+	sqlScript = fmt.Sprintf(sqlScript, "NOW()", inputModel.ID.String())
+
+	rows, err := r.db.Raw(sqlScript).Rows()
+	if err != nil {
+		logger.Error("plantRepository", "Failed to fetch DeletePlant", map[string]string{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		if err := rows.Scan(
+			&result.ID,
+		); err != nil {
+			logger.Error("plantRepository", "Failed to fetch scan DeletePlant result", map[string]string{
+				"error": err.Error(),
+			})
+			return nil, fmt.Errorf("error scanning row: %w", err)
+		}
+	}
+
+	logger.Info("plantRepository", "Plant deleted successfully", map[string]string{
+		"farmID": inputModel.ID.String(),
+	})
+	return result, nil
 }

@@ -1,14 +1,18 @@
 package service
 
 import (
+	"hydroponic-be/internal/dto"
 	"hydroponic-be/internal/model"
 	"hydroponic-be/internal/repository"
 	"hydroponic-be/internal/util/logger"
+
+	"github.com/google/uuid"
 )
 
 type PlantService interface {
 	CreatePlant() string
-	GetPlants() (*[]model.Plants, error)
+	GetPlants() (*[]model.Plant, error)
+	DeletePlant(plantId *uuid.UUID) (*dto.OnlyIdResponse, error)
 }
 
 type plantService struct {
@@ -30,12 +34,12 @@ func (s *plantService) CreatePlant() string {
 
 }
 
-func (s *plantService) GetPlants() (*[]model.Plants, error) {
+func (s *plantService) GetPlants() (*[]model.Plant, error) {
 	logger.Info("plant Service", "Init GetPlants Service", nil)
 
 	res, err := s.plantRepo.GetPlants()
 	if err != nil {
-		logger.Error("plantService", "Failed to fetch GetPlants", map[string]string{
+		logger.Error("plantService", "Failed to fetch GetPlants Repo", map[string]string{
 			"error": err.Error(),
 		})
 		return nil, err
@@ -45,6 +49,24 @@ func (s *plantService) GetPlants() (*[]model.Plants, error) {
 	return res, nil
 }
 
-func (s *plantService) DeletePlant() {
+func (s *plantService) DeletePlant(plantId *uuid.UUID) (*dto.OnlyIdResponse, error) {
+	logger.Info("plantService", "Init DeleteFarm Service", map[string]string{
+		"plant_id": plantId.String(),
+	})
 
+	res, err := s.plantRepo.DeletePlant(&model.Plant{ID: *plantId})
+	if err != nil {
+		logger.Error("plantService", "Failed to execute DeleteFarm Repo", map[string]string{
+			"plant_id": plantId.String(),
+			"error":    err.Error(),
+		})
+		return nil, err
+	}
+
+	logger.Info("plantService", "Finished DelteFarm", map[string]string{
+		"plant_id": res.ID.String(),
+	})
+	return &dto.OnlyIdResponse{
+		ID: res.ID,
+	}, nil
 }

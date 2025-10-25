@@ -1,6 +1,6 @@
-package dto
+package model
 
-type GetPlants struct {
+type Plants struct {
 	ID              string  `json:"id"`
 	PlantName       string  `json:"plant_name"`
 	ScientificName  string  `json:"scientific_name"`

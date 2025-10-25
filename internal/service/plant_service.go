@@ -1,14 +1,14 @@
 package service
 
 import (
-	"hydroponic-be/internal/dto"
+	"hydroponic-be/internal/model"
 	"hydroponic-be/internal/repository"
 	"hydroponic-be/internal/util/logger"
 )
 
 type PlantService interface {
 	CreatePlant() string
-	GetPlants() (*[]dto.GetPlants, error)
+	GetPlants() (*[]model.Plants, error)
 }
 
 type plantService struct {
@@ -30,7 +30,7 @@ func (s *plantService) CreatePlant() string {
 
 }
 
-func (s *plantService) GetPlants() (*[]dto.GetPlants, error) {
+func (s *plantService) GetPlants() (*[]model.Plants, error) {
 	logger.Info("plant Service", "Init GetPlants Service", nil)
 
 	res, err := s.plantRepo.GetPlants()

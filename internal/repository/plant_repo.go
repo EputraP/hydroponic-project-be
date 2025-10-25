@@ -2,7 +2,7 @@ package repository
 
 import (
 	"fmt"
-	"hydroponic-be/internal/dto"
+	"hydroponic-be/internal/model"
 	"hydroponic-be/internal/util/logger"
 	"strconv"
 
@@ -11,7 +11,7 @@ import (
 
 type PlantRepository interface {
 	CreateFarm() string
-	GetPlants() (*[]dto.GetPlants, error)
+	GetPlants() (*[]model.Plants, error)
 }
 
 type plantRepository struct {
@@ -28,12 +28,12 @@ func (r *plantRepository) CreateFarm() string {
 	return "Adili Jokowi"
 }
 
-func (r *plantRepository) GetPlants() (*[]dto.GetPlants, error) {
+func (r *plantRepository) GetPlants() (*[]model.Plants, error) {
 
 	logger.Info("plantRepository", "Fetching GetPlants", map[string]string{})
 
-	queryResult := &dto.GetPlants{}
-	result := []dto.GetPlants{}
+	queryResult := &model.Plants{}
+	result := []model.Plants{}
 
 	sqlScript := `select
 					id,

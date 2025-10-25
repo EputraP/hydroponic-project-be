@@ -1,9 +1,14 @@
 package service
 
-import "hydroponic-be/internal/repository"
+import (
+	"hydroponic-be/internal/dto"
+	"hydroponic-be/internal/repository"
+	"hydroponic-be/internal/util/logger"
+)
 
 type PlantService interface {
 	CreatePlant() string
+	GetPlants() (*[]dto.GetPlants, error)
 }
 
 type plantService struct {
@@ -25,8 +30,19 @@ func (s *plantService) CreatePlant() string {
 
 }
 
-func (s *plantService) GetPlants() {
+func (s *plantService) GetPlants() (*[]dto.GetPlants, error) {
+	logger.Info("plant Service", "Init GetPlants Service", nil)
 
+	res, err := s.plantRepo.GetPlants()
+	if err != nil {
+		logger.Error("plantService", "Failed to fetch GetPlants", map[string]string{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+
+	logger.Info("plantService", "Finished GetPlants Service", map[string]string{})
+	return res, nil
 }
 
 func (s *plantService) DeletePlant() {

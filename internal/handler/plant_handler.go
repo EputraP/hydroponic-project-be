@@ -2,6 +2,7 @@ package handler
 
 import (
 	"hydroponic-be/internal/service"
+	"hydroponic-be/internal/util/logger"
 	"hydroponic-be/internal/util/response"
 
 	"github.com/gin-gonic/gin"
@@ -28,7 +29,18 @@ func (h *PlantHandler) CreatePlant(c *gin.Context) {
 
 func (h *PlantHandler) GetPlants(c *gin.Context) {
 
-	response.JSON(c, 200, "Get Plant Success", "")
+	logger.Info("plantHandler", "Init GetPlants handler", nil)
+
+	resp, err := h.plantService.GetPlants()
+	if err != nil {
+		logger.Error("plantHandler", "Failed to execute GetPlants Service", map[string]string{
+			"error": err.Error(),
+		})
+		response.Error(c, 400, err.Error())
+		return
+	}
+
+	response.JSON(c, 200, "Get Plant Success", resp)
 }
 
 func (h *PlantHandler) DeletePlant(c *gin.Context) {

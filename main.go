@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"hydroponic-be/internal/handler"
 	"hydroponic-be/internal/middleware"
+	"hydroponic-be/internal/repository"
 	"hydroponic-be/internal/routes"
+	"hydroponic-be/internal/service"
 	dbstore "hydroponic-be/internal/store"
 	"hydroponic-be/internal/util/logger"
 	"os"
@@ -58,10 +60,20 @@ func main() {
 func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	logger.Info("main", "Initializing dependencies...", nil)
 
-	_ = dbstore.Get()
+	db := dbstore.Get()
+
+	logger.Info("main", "Initializing repositories...", nil)
+	plantRepo := repository.NewPlantRepository(db)
+
+	logger.Info("main", "Initializing services...", nil)
+	plantService := service.NewPlantService(service.PlantServiceConfig{
+		PlantRepo: plantRepo,
+	})
 
 	logger.Info("main", "Initializing handlers...", nil)
-	plantHandler := handler.NewPlantHandler(handler.PlantHandlerConfig{})
+	plantHandler := handler.NewPlantHandler(handler.PlantHandlerConfig{
+		PlantService: plantService,
+	})
 
 	handlers = routes.Handlers{
 		Plant: plantHandler,

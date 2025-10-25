@@ -1,4 +1,4 @@
-
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 create schema hydroponic_system;
 
@@ -22,12 +22,27 @@ CREATE TABLE hydroponic_system.remarks (
 );
 
 CREATE TABLE hydroponic_system.plants (
-	id uuid DEFAULT public.uuid_generate_v4(),
-	plant varchar NOT NULL,
-	created_at timestamptz NULL,
-	updated_at timestamptz NULL,
-	deleted_at timestamptz NULL,
-	CONSTRAINT plant_pkey PRIMARY KEY (id)
+    id uuid DEFAULT public.uuid_generate_v4(),
+    plant_name varchar NOT NULL,                        -- e.g. Lettuce, Water Spinach
+    scientific_name varchar NULL,                       -- e.g. Lactuca sativa
+    variety varchar NULL,                               -- e.g. Butterhead
+    plant_type varchar NULL,                            -- e.g. Leafy
+    description text NULL,                              -- description of the plant
+    pH_min float NULL,                                  -- minimum pH tolerance
+    pH_max float NULL,                                  -- maximum pH tolerance
+    ppm_min int NULL,                                   -- minimum nutrient PPM
+    ppm_max int NULL,                                   -- maximum nutrient PPM
+    light_hours float NULL,                             -- hours of light per day
+    optimal_temperature_min float NULL,                 -- minimum optimal temperature (°C)
+    optimal_temperature_max float NULL,                 -- maximum optimal temperature (°C)
+    harvest_days int NULL,                              -- total days from sowing to harvest
+    germination_days int NULL,                          -- days to germination
+    hss_days int NULL,                                  -- days after sowing before transplant
+    hst_days int NULL,                                  -- days after transplant to harvest
+    created_at timestamptz DEFAULT now(),               -- record creation time
+    updated_at timestamptz DEFAULT now(),               -- record last update time
+    deleted_at timestamptz NULL,                        -- soft delete timestamp
+    CONSTRAINT plants_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE hydroponic_system.uom (

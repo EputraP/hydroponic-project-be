@@ -70,13 +70,16 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	plantService := service.NewPlantService(service.PlantServiceConfig{
 		PlantRepo: plantRepo,
 	})
-	_ = service.NewProcessService(service.ProcessServiceConfig{
+	processService := service.NewProcessService(service.ProcessServiceConfig{
 		ProcessRepo: processRepo,
 	})
 
 	logger.Info("main", "Initializing handlers...", nil)
 	plantHandler := handler.NewPlantHandler(handler.PlantHandlerConfig{
 		PlantService: plantService,
+	})
+	_ = handler.NewProcessHandler(handler.ProcessHandlerConfig{
+		ProcessService: processService,
 	})
 
 	handlers = routes.Handlers{

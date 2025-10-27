@@ -35,7 +35,7 @@ func (s *plantService) CreatePlant() string {
 }
 
 func (s *plantService) GetPlants() (*[]model.Plant, error) {
-	logger.Info("plant Service", "Init GetPlants Service", nil)
+	logger.Info("plantService", "Init GetPlants Service", nil)
 
 	res, err := s.plantRepo.GetPlants()
 	if err != nil {

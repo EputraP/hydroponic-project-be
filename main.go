@@ -78,12 +78,13 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	plantHandler := handler.NewPlantHandler(handler.PlantHandlerConfig{
 		PlantService: plantService,
 	})
-	_ = handler.NewProcessHandler(handler.ProcessHandlerConfig{
+	processHandler := handler.NewProcessHandler(handler.ProcessHandlerConfig{
 		ProcessService: processService,
 	})
 
 	handlers = routes.Handlers{
-		Plant: plantHandler,
+		Plant:   plantHandler,
+		Process: processHandler,
 	}
 
 	logger.Info("main", "Application initialized successfully.", nil)

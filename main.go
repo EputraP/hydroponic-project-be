@@ -64,6 +64,7 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 
 	logger.Info("main", "Initializing repositories...", nil)
 	plantRepo := repository.NewPlantRepository(db)
+	_ = repository.NewProcessRepository(db)
 
 	logger.Info("main", "Initializing services...", nil)
 	plantService := service.NewPlantService(service.PlantServiceConfig{

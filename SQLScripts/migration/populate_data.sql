@@ -50,4 +50,51 @@ INSERT INTO hydroponic_system.plants (
  -- 🥬 Water Spinach
  ('Water Spinach', 'Ipomoea aquatica', 'Green Kangkung', 'Leafy',
  'Fast-growing leafy vegetable ideal for hydroponic systems; high market demand in Southeast Asia.',
- 6.0, 7.5, 900, 1200, 12.0, 22.0, 32.0, 25, 2, 5, 20);;
+ 6.0, 7.5, 900, 1200, 12.0, 22.0, 32.0, 25, 2, 5, 20);
+
+
+ INSERT INTO hydroponic_system.process (process_name, description, created_at, updated_at)
+VALUES
+('Seed Preparation', 'Selecting and soaking lettuce seeds before germination begins.', now(), NULL),
+('Germination', 'Sprouting seeds using rockwool or sponge media until roots appear.', now(), NULL),
+('Seedling Care', 'Growing young seedlings under low EC and moderate light until ready for transplant.', now(), NULL),
+('Transplanting', 'Moving seedlings into the NFT or tower hydroponic system.', now(), NULL),
+('Vegetative Growth', 'Main growth phase — monitoring pH, EC, light intensity, and temperature.', now(), NULL),
+('Nutrient Monitoring', 'Regular checking and adjustment of EC and pH to maintain optimal nutrient levels.', now(), NULL),
+('Pest & Disease Check', 'Inspecting plants for pests, leaf damage, or fungal infections.', now(), NULL),
+('System Maintenance', 'Routine maintenance — cleaning filters, checking pumps, and ensuring good water flow.', now(), NULL),
+('Pre-Harvest Check', 'Inspecting plant size, leaf color, and system readiness before harvest.', now(), NULL),
+('Harvesting', 'Cutting lettuce heads at maturity and cleaning roots.', now(), NULL),
+('Post-Harvest Handling', 'Trimming, cleaning, and packaging harvested produce for sale or storage.', now(), NULL),
+('System Sanitization', 'Cleaning and disinfecting all system parts before the next planting cycle.', now(), NULL);\
+
+
+INSERT INTO hydroponic_system.remarks (process_id, remark, description, created_at, updated_at, deleted_at)
+VALUES
+-- Seeding Stage
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Seedling Care'), 'Rockwool too wet', 'The rockwool is oversaturated, causing low oxygen for seed germination.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Seedling Care'), 'Uneven germination', 'Some seeds sprout slower or fail to germinate due to uneven moisture.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Seedling Care'), 'Algae growth in nursery tray', 'Algae forming on tray surface due to excessive light exposure or high humidity.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Seedling Care'), 'Damping off', 'Seedlings collapse due to fungal infection caused by overwatering or poor airflow.', NOW(), NULL, NULL),
+
+-- Transplanting Stage
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Transplanting'), 'Root damage during transplanting', 'Roots were torn or pinched when moving seedlings to NFT cups.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Transplanting'), 'Netpot not seated properly', 'Netpot not fitted evenly causing poor water contact.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Transplanting'), 'Low survival rate after transplant', 'Plants wilted after transplanting due to stress or shock.', NOW(), NULL, NULL),
+
+-- Vegetative Growth Stage
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Vegetative Growth'), 'Uneven growth', 'Some plants grow faster than others due to uneven light or nutrient flow.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Vegetative Growth'), 'PPM too high', 'Nutrient concentration too high causing leaf burn.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Vegetative Growth'), 'PPM too low', 'Nutrient solution too diluted causing yellow leaves.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Vegetative Growth'), 'pH drift', 'pH levels increase or decrease rapidly due to unbalanced nutrient uptake.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Vegetative Growth'), 'Pump failure', 'Pump stopped working, affecting water circulation.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Vegetative Growth'), 'Nutrient solution temperature too high', 'Warm water reduces oxygen and stresses roots.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Vegetative Growth'), 'Lettuce tip burn', 'Leaf edges burned due to calcium deficiency or high EC.', NOW(), NULL, NULL),
+
+-- Harvesting Stage
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Harvesting'), 'Bolting', 'Lettuce begins flowering prematurely due to high temperature.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Harvesting'), 'Leaf wilting before harvest', 'Leaves droop from high temperature or lack of water.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Harvesting'), 'Mature lettuce head too tight', 'Overgrown lettuce forming hard compact head.', NOW(), NULL, NULL),
+((SELECT id FROM hydroponic_system.process WHERE process_name = 'Harvesting'), 'Uneven harvest size', 'Different plant sizes make harvesting inconsistent.', NOW(), NULL, NULL);
+
+

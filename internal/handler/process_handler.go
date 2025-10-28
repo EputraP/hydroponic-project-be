@@ -37,3 +37,19 @@ func (h *ProcessHandler) GetProcesses(c *gin.Context) {
 
 	response.JSON(c, 200, "GetProcesses Success", resp)
 }
+
+func (h *ProcessHandler) GetModules(c *gin.Context) {
+
+	logger.Info("processHandler", "Init GetModules handler", nil)
+
+	resp, err := h.processService.GetModules()
+	if err != nil {
+		logger.Error("processHandler", "Failed to execute GetModules Service", map[string]string{
+			"error": err.Error(),
+		})
+		response.Error(c, 400, err.Error())
+		return
+	}
+
+	response.JSON(c, 200, "GetModules Success", resp)
+}

@@ -6,4 +6,5 @@ type Process struct {
 	ID          uuid.UUID `json:"id"`
 	ProcessName string    `json:"process_name"`
 	Description string    `json:"description"`
+	ProcessId   uuid.UUID `json:"process_id"`
 }

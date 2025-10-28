@@ -7,6 +7,8 @@ CREATE TABLE hydroponic_system.process (
 	id uuid DEFAULT public.uuid_generate_v4(),
 	process_name varchar NOT NULL,
     description varchar NOT NULL,
+    type int,
+    process_id uuid,
 	created_at timestamptz NULL,
 	updated_at timestamptz NULL,
 	deleted_at timestamptz NULL,
@@ -72,8 +74,8 @@ CREATE TABLE hydroponic_system.asset_types (
 
 CREATE TABLE hydroponic_system.assets (
 	id uuid DEFAULT public.uuid_generate_v4(),
-	uom_id uuid NOT NULL,
-    plant_id uuid NOT NULL,
+	uom_id uuid,
+    plant_id uuid ,
     asset_type_id uuid NOT NULL,
     asset_name varchar NOT NULL,
     price int NOT NULL,

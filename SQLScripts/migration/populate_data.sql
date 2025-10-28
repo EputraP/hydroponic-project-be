@@ -124,3 +124,13 @@ INSERT INTO hydroponic_system.uom (name, symbol, description) VALUES
 ('Micromole per square meter per second', 'µmol/m²/s', 'For PAR/PPFD light measurement'),
 ('Degree Celsius', '°C', 'For temperature measurement'),
 ('Percent', '%', 'For humidity or concentration ratios');
+
+
+INSERT INTO hydroponic_system.asset_types (type_name, description, created_at) VALUES
+('Infrastructure', 'Structural and growing system components', NOW()),
+('Equipment', 'Mechanical and electrical tools for operations', NOW()),
+('Consumable', 'Short-term items used regularly', NOW()),
+('Monitoring & IT', 'Sensors and control systems for automation', NOW()),
+('Operational Support', 'Support tools for daily activities', NOW()),
+('Investment / Financial', 'Initial and long-term assets', NOW()),
+('Intangible', 'Non-physical assets such as brand or IP', NOW());

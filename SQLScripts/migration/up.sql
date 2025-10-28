@@ -59,13 +59,24 @@ CREATE TABLE hydroponic_system.uom (
 	CONSTRAINT uom_pkey PRIMARY KEY (id)
 );
 
+CREATE TABLE hydroponic_system.asset_types (
+    id UUID DEFAULT public.uuid_generate_v4(),
+    type_name VARCHAR NOT NULL,
+   "description" varchar NOT NULL,
+    created_at timestamptz NULL,
+    updated_at timestamptz NULL,
+    deleted_at timestamptz NULL,
+    CONSTRAINT asset_type_pkey PRIMARY KEY (id)
+);
+
+
 CREATE TABLE hydroponic_system.assets (
 	id uuid DEFAULT public.uuid_generate_v4(),
 	uom_id uuid NOT NULL,
     plant_id uuid NOT NULL,
+    asset_type_id uuid NOT NULL,
     asset_name varchar NOT NULL,
     price int NOT NULL,
-    asset_type varchar NOT NULL,
     "value" int NOT NULL,
     cycle int NOT NULL,
 	created_at timestamptz NULL,
@@ -122,6 +133,7 @@ CREATE TABLE hydroponic_system.unhealthy_plant_treatment (
 -- Table Relationships
 ALTER TABLE ONLY hydroponic_system.assets ADD CONSTRAINT fk_assets_uom FOREIGN KEY (uom_id) REFERENCES hydroponic_system.uom(id) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE ONLY hydroponic_system.assets ADD CONSTRAINT fk_assets_plant FOREIGN KEY (plant_id) REFERENCES hydroponic_system.plants(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY hydroponic_system.assets ADD CONSTRAINT fk_assets_asset_type FOREIGN KEY (asset_type_id) REFERENCES hydroponic_system.asset_types(id) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE ONLY hydroponic_system.remarks ADD CONSTRAINT fk_remarks_process FOREIGN KEY (process_id) REFERENCES hydroponic_system.process(id) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE ONLY hydroponic_system.plant_growth ADD CONSTRAINT fk_pg_asset FOREIGN KEY (tower_id) REFERENCES hydroponic_system.assets(id) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE ONLY hydroponic_system.plant_growth ADD CONSTRAINT fk_pg_process FOREIGN KEY (process_id) REFERENCES hydroponic_system.process(id) ON UPDATE CASCADE ON DELETE SET NULL;

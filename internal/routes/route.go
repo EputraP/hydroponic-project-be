@@ -7,10 +7,11 @@ import (
 )
 
 type Handlers struct {
-	Plant   *handler.PlantHandler
-	Process *handler.ProcessHandler
-	Remark  *handler.RemarkHandler
-	Uom     *handler.UomHandler
+	Plant     *handler.PlantHandler
+	Process   *handler.ProcessHandler
+	Remark    *handler.RemarkHandler
+	Uom       *handler.UomHandler
+	AssetType *handler.AssetTypeHandler
 }
 
 type Middlewares struct {
@@ -32,4 +33,7 @@ func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 
 	uom := srv.Group("/uom")
 	uom.GET("/", h.Uom.GetUoms)
+
+	asset_type := srv.Group("/asset-type")
+	asset_type.GET("/", h.AssetType.GetAssetTypes)
 }

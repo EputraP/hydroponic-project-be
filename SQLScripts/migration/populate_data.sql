@@ -98,32 +98,32 @@ VALUES
 ((SELECT id FROM hydroponic_system.process WHERE process_name = 'Harvesting'), 'Uneven harvest size', 'Different plant sizes make harvesting inconsistent.', NOW(), NULL, NULL);
 
 
-INSERT INTO hydroponic_system.uom (name, symbol, description) VALUES
+INSERT INTO hydroponic_system.uom (name, symbol, description,created_at) VALUES
 -- Nutrient & Solution Measurement
-('Milliliter', 'mL', 'For measuring liquid nutrients and additives'),
-('Liter', 'L', 'For nutrient solution volume or tank capacity'),
-('Part Per Million', 'ppm', 'For measuring nutrient concentration (EC/TDS)'),
-('Microsiemens per centimeter', 'µS/cm', 'For measuring electrical conductivity (EC)'),
-('pH', 'pH', 'For acidity or alkalinity of nutrient solution'),
+('Milliliter', 'mL', 'For measuring liquid nutrients and additives', NOW()),
+('Liter', 'L', 'For nutrient solution volume or tank capacity', NOW()),
+('Part Per Million', 'ppm', 'For measuring nutrient concentration (EC/TDS)', NOW()),
+('Microsiemens per centimeter', 'µS/cm', 'For measuring electrical conductivity (EC)', NOW()),
+('pH', 'pH', 'For acidity or alkalinity of nutrient solution', NOW()),
 
 -- Plant Growth & Space Measurement
-('Centimeter', 'cm', 'For measuring plant height and spacing'),
-('Meter', 'm', 'For measuring tray or pipe length'),
-('Square Meter', 'm²', 'For area coverage of growing beds'),
+('Centimeter', 'cm', 'For measuring plant height and spacing', NOW()),
+('Meter', 'm', 'For measuring tray or pipe length', NOW()),
+('Square Meter', 'm²', 'For area coverage of growing beds', NOW()),
 
 -- Water Flow & Volume Measurement
-('Liter per Hour', 'L/h', 'Common unit for pump flow rate'),
-('Liter per Minute', 'L/min', 'Used for faster flow rate measurement'),
+('Liter per Hour', 'L/h', 'Common unit for pump flow rate', NOW()),
+('Liter per Minute', 'L/min', 'Used for faster flow rate measurement', NOW()),
 
 -- Weight Measurement
-('Gram', 'g', 'For measuring nutrients or seed weight'),
-('Kilogram', 'kg', 'For harvest weight or bulk material measurement'),
+('Gram', 'g', 'For measuring nutrients or seed weight', NOW()),
+('Kilogram', 'kg', 'For harvest weight or bulk material measurement', NOW()),
 
 -- Light & Environment Measurement
-('Lux', 'lx', 'For light intensity measurement'),
-('Micromole per square meter per second', 'µmol/m²/s', 'For PAR/PPFD light measurement'),
-('Degree Celsius', '°C', 'For temperature measurement'),
-('Percent', '%', 'For humidity or concentration ratios');
+('Lux', 'lx', 'For light intensity measurement', NOW()),
+('Micromole per square meter per second', 'µmol/m²/s', 'For PAR/PPFD light measurement', NOW()),
+('Degree Celsius', '°C', 'For temperature measurement', NOW()),
+('Percent', '%', 'For humidity or concentration ratios', NOW());
 
 
 INSERT INTO hydroponic_system.asset_types (type_name, description, created_at) VALUES

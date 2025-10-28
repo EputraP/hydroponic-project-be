@@ -53,20 +53,40 @@ INSERT INTO hydroponic_system.plants (
  6.0, 7.5, 900, 1200, 12.0, 22.0, 32.0, 25, 2, 5, 20);
 
 
- INSERT INTO hydroponic_system.process (process_name, description, created_at, updated_at)
+INSERT INTO hydroponic_system.process (process_name, description,type,process_id, created_at, updated_at)
 VALUES
-('Seed Preparation', 'Selecting and soaking lettuce seeds before germination begins.', now(), NULL),
-('Germination', 'Sprouting seeds using rockwool or sponge media until roots appear.', now(), NULL),
-('Seedling Care', 'Growing young seedlings under low EC and moderate light until ready for transplant.', now(), NULL),
-('Transplanting', 'Moving seedlings into the NFT or tower hydroponic system.', now(), NULL),
-('Vegetative Growth', 'Main growth phase — monitoring pH, EC, light intensity, and temperature.', now(), NULL),
-('Nutrient Monitoring', 'Regular checking and adjustment of EC and pH to maintain optimal nutrient levels.', now(), NULL),
-('Pest & Disease Check', 'Inspecting plants for pests, leaf damage, or fungal infections.', now(), NULL),
-('System Maintenance', 'Routine maintenance — cleaning filters, checking pumps, and ensuring good water flow.', now(), NULL),
-('Pre-Harvest Check', 'Inspecting plant size, leaf color, and system readiness before harvest.', now(), NULL),
-('Harvesting', 'Cutting lettuce heads at maturity and cleaning roots.', now(), NULL),
-('Post-Harvest Handling', 'Trimming, cleaning, and packaging harvested produce for sale or storage.', now(), NULL),
-('System Sanitization', 'Cleaning and disinfecting all system parts before the next planting cycle.', now(), NULL);\
+('Seed Preparation', 'Selecting and soaking lettuce seeds before germination begins.',NULL,NULL, now(), NULL),
+('Germination', 'Sprouting seeds using rockwool or sponge media until roots appear.', NULL,NULL,now(), NULL),
+('Seedling Care', 'Growing young seedlings under low EC and moderate light until ready for transplant.', NULL,NULL,now(), NULL),
+('Transplanting', 'Moving seedlings into the NFT or tower hydroponic system.',NULL,NULL, now(), NULL),
+('Vegetative Growth', 'Main growth phase — monitoring pH, EC, light intensity, and temperature.', NULL,NULL,now(), NULL),
+('Nutrient Monitoring', 'Regular checking and adjustment of EC and pH to maintain optimal nutrient levels.',NULL,NULL, now(), NULL),
+('Pest & Disease Check', 'Inspecting plants for pests, leaf damage, or fungal infections.', NULL,NULL,now(), NULL),
+('System Maintenance', 'Routine maintenance — cleaning filters, checking pumps, and ensuring good water flow.', NULL,NULL,now(), NULL),
+('Pre-Harvest Check', 'Inspecting plant size, leaf color, and system readiness before harvest.',NULL,NULL, now(), NULL),
+('Harvesting', 'Cutting lettuce heads at maturity and cleaning roots.', NULL,NULL,now(), NULL),
+('Post-Harvest Handling', 'Trimming, cleaning, and packaging harvested produce for sale or storage.',NULL,NULL, now(), NULL),
+('System Sanitization', 'Cleaning and disinfecting all system parts before the next planting cycle.', NULL,NULL,now(), NULL),
+('Planning', 'Module', 1,NULL,now(), NULL),
+('Growing', 'Module', 1,NULL,now(), NULL),
+('Harvesting', 'Module', 1,NULL,now(), NULL),
+('Transaction', 'Module', 1,NULL,now(), NULL),
+('Waste Management', 'Module', 1,NULL,now(), NULL),
+('Energy Monitoring', 'Module', 1,NULL,now(), NULL),
+('Admin', 'Module', 1,NULL,now(), NULL),
+('Investation', 'Module', 1,NULL,now(), NULL);
+
+INSERT INTO hydroponic_system.process (process_name, description,type,process_id, created_at, updated_at)
+VALUES
+('Growth Monitoring', 'Sub Module', 2,(SELECT id FROM hydroponic_system.process WHERE process_name = 'Growing'),now(), NULL),
+('Unhealthy Plant Treatment', 'Sub Module', 2,(SELECT id FROM hydroponic_system.process WHERE process_name = 'Growing'),now(), NULL),
+('Asset Ops. Transaction', 'Sub Module', 2,(SELECT id FROM hydroponic_system.process WHERE process_name = 'Transaction'),now(), NULL),
+('Process', 'Sub Module', 2,(SELECT id FROM hydroponic_system.process WHERE process_name = 'Admin'),now(), NULL),
+('UoM', 'Sub Module', 2,(SELECT id FROM hydroponic_system.process WHERE process_name = 'Admin'),now(), NULL),
+('Remarks', 'Sub Module', 2,(SELECT id FROM hydroponic_system.process WHERE process_name = 'Admin'),now(), NULL),
+('Assets', 'Sub Module', 2,(SELECT id FROM hydroponic_system.process WHERE process_name = 'Admin'),now(), NULL),
+('Plants', 'Sub Module', 2,(SELECT id FROM hydroponic_system.process WHERE process_name = 'Admin'),now(), NULL);
+
 
 
 INSERT INTO hydroponic_system.remarks (process_id, remark, description, created_at, updated_at, deleted_at)

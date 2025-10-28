@@ -11,6 +11,7 @@ import (
 
 type ProcessRepository interface {
 	GetProcesses() (*[]model.Process, error)
+	GetModules() (*[]model.Process, error)
 }
 
 type processRepository struct {
@@ -64,6 +65,57 @@ func (r *processRepository) GetProcesses() (*[]model.Process, error) {
 	}
 
 	logger.Info("processRepository", "GetProcesses fetched successfully", map[string]string{
+		"fetched": strconv.Itoa(len(result)),
+	})
+	return &result, nil
+
+}
+
+func (r *processRepository) GetModules() (*[]model.Process, error) {
+
+	logger.Info("processRepository", "Fetching GetModules", map[string]string{})
+
+	queryResult := &model.Process{}
+	result := []model.Process{}
+
+	sqlScript := `select
+					id,
+					process_name,
+					description,
+					process_id
+				from hydroponic_system.process
+				where
+					deleted_at is null AND
+					process_id IS NOT NULL
+
+		`
+
+	rows, err := r.db.Raw(sqlScript).Rows()
+	if err != nil {
+		logger.Error("processRepository", "Failed to fetch GetModules", map[string]string{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		if err := rows.Scan(
+			&queryResult.ID,
+			&queryResult.ProcessName,
+			&queryResult.Description,
+			&queryResult.ProcessId,
+		); err != nil {
+			logger.Error("processRepository", "Failed to fetch scan GetModules result", map[string]string{
+				"error": err.Error(),
+			})
+			return nil, fmt.Errorf("error scanning row: %w", err)
+		}
+
+		result = append(result, *queryResult)
+	}
+
+	logger.Info("processRepository", "GetModules fetched successfully", map[string]string{
 		"fetched": strconv.Itoa(len(result)),
 	})
 	return &result, nil

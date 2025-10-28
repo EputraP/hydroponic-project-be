@@ -26,6 +26,7 @@ func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 
 	process := srv.Group("/process")
 	process.GET("/", h.Process.GetProcesses)
+	process.GET("/modules", h.Process.GetModules)
 
 	remark := srv.Group("/remark")
 	remark.GET("/", h.Remark.GetRemarks)

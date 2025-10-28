@@ -66,6 +66,7 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	plantRepo := repository.NewPlantRepository(db)
 	processRepo := repository.NewProcessRepository(db)
 	remarkRepo := repository.NewRemarkRepository(db)
+	uomRepo := repository.NewUomRepository(db)
 
 	logger.Info("main", "Initializing services...", nil)
 	plantService := service.NewPlantService(service.PlantServiceConfig{
@@ -76,6 +77,9 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	})
 	remarkService := service.NewRemarkService(service.RemarkServiceConfig{
 		RemarkRepo: remarkRepo,
+	})
+	uomService := service.NewUomService(service.UomServiceConfig{
+		UomRepo: uomRepo,
 	})
 
 	logger.Info("main", "Initializing handlers...", nil)
@@ -88,11 +92,15 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	remarkHandler := handler.NewRemarkHandler(handler.RemarkHandlerConfig{
 		RemarkService: remarkService,
 	})
+	uomHandler := handler.NewUomHandler(handler.UomHandlerConfig{
+		UomService: uomService,
+	})
 
 	handlers = routes.Handlers{
 		Plant:   plantHandler,
 		Process: processHandler,
 		Remark:  remarkHandler,
+		Uom:     uomHandler,
 	}
 
 	logger.Info("main", "Application initialized successfully.", nil)

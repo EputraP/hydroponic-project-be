@@ -10,6 +10,7 @@ type Handlers struct {
 	Plant   *handler.PlantHandler
 	Process *handler.ProcessHandler
 	Remark  *handler.RemarkHandler
+	Uom     *handler.UomHandler
 }
 
 type Middlewares struct {
@@ -29,4 +30,6 @@ func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 	remark.GET("/", h.Remark.GetRemarks)
 	remark.GET("/by-process/:processId", h.Remark.GetRemarksByProcessId)
 
+	uom := srv.Group("/uom")
+	uom.GET("/", h.Uom.GetUoms)
 }

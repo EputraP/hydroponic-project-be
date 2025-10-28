@@ -50,8 +50,9 @@ CREATE TABLE hydroponic_system.plants (
 
 CREATE TABLE hydroponic_system.uom (
 	id uuid DEFAULT public.uuid_generate_v4(),
-	asset_id uuid NOT NULL,
-    uom varchar NOT NULL,
+    "name" varchar NOT NULL,
+    symbol varchar NOT NULL,
+    "description" varchar NOT NULL,
 	created_at timestamptz NULL,
 	updated_at timestamptz NULL,
 	deleted_at timestamptz NULL,

@@ -65,6 +65,7 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	logger.Info("main", "Initializing repositories...", nil)
 	plantRepo := repository.NewPlantRepository(db)
 	processRepo := repository.NewProcessRepository(db)
+	remarkRepo := repository.NewRemarkRepository(db)
 
 	logger.Info("main", "Initializing services...", nil)
 	plantService := service.NewPlantService(service.PlantServiceConfig{
@@ -72,6 +73,9 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	})
 	processService := service.NewProcessService(service.ProcessServiceConfig{
 		ProcessRepo: processRepo,
+	})
+	remarkService := service.NewRemarkService(service.RemarkServiceConfig{
+		RemarkRepo: remarkRepo,
 	})
 
 	logger.Info("main", "Initializing handlers...", nil)
@@ -81,10 +85,14 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	processHandler := handler.NewProcessHandler(handler.ProcessHandlerConfig{
 		ProcessService: processService,
 	})
+	remarkHandler := handler.NewRemarkHandler(handler.RemarkHandlerConfig{
+		RemarkService: remarkService,
+	})
 
 	handlers = routes.Handlers{
 		Plant:   plantHandler,
 		Process: processHandler,
+		Remark:  remarkHandler,
 	}
 
 	logger.Info("main", "Application initialized successfully.", nil)

@@ -9,6 +9,7 @@ import (
 type Handlers struct {
 	Plant   *handler.PlantHandler
 	Process *handler.ProcessHandler
+	Remark  *handler.RemarkHandler
 }
 
 type Middlewares struct {
@@ -23,5 +24,8 @@ func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 
 	process := srv.Group("/process")
 	process.GET("/", h.Process.GetProcesses)
+
+	remark := srv.Group("/remark")
+	remark.GET("/", h.Remark.GetRemarks)
 
 }

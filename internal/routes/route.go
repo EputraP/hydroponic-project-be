@@ -12,6 +12,7 @@ type Handlers struct {
 	Remark    *handler.RemarkHandler
 	Uom       *handler.UomHandler
 	AssetType *handler.AssetTypeHandler
+	Asset     *handler.AssetHandler
 }
 
 type Middlewares struct {

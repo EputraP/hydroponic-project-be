@@ -67,8 +67,8 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	processRepo := repository.NewProcessRepository(db)
 	remarkRepo := repository.NewRemarkRepository(db)
 	uomRepo := repository.NewUomRepository(db)
-	assetType := repository.NewAssetTypeRepository(db)
-	asset := repository.NewAssetRepository(db)
+	assetTypeRepo := repository.NewAssetTypeRepository(db)
+	assetRepo := repository.NewAssetRepository(db)
 
 	logger.Info("main", "Initializing services...", nil)
 	plantService := service.NewPlantService(service.PlantServiceConfig{
@@ -84,10 +84,10 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 		UomRepo: uomRepo,
 	})
 	assetTypeService := service.NewAssetTypeService(service.AssetTypeServiceConfig{
-		AssetTypeRepo: assetType,
+		AssetTypeRepo: assetTypeRepo,
 	})
 	assetService := service.NewAssetService(service.AssetServiceConfig{
-		AssetRepo: asset,
+		AssetRepo: assetRepo,
 	})
 
 	logger.Info("main", "Initializing handlers...", nil)

@@ -16,8 +16,8 @@ type assetRepository struct {
 	db *gorm.DB
 }
 
-func NewAssetRepository(db *gorm.DB) RemarkRepository {
-	return &remarkRepository{
+func NewAssetRepository(db *gorm.DB) AssetRepository {
+	return &assetRepository{
 		db: db,
 	}
 }
@@ -36,14 +36,14 @@ func (r *assetRepository) CreateAsset(input *model.Asset) (*model.Asset, error) 
 					created_at,  
 					asset_type_id)
 				VALUES
-					('%s' 
+					('%s', 
 					'%s', 
-					%s, 
+					'%s', 
 					%d, 
 					%d, 
 					%d, 
 					NOW(), 
-					'%s');'
+					'%s');
 		`
 	sqlScript = fmt.Sprintf(sqlScript,
 		input.UOMID,

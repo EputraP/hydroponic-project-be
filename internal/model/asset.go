@@ -8,8 +8,8 @@ type Asset struct {
 	PlantID     uuid.UUID `json:"plant_id"`
 	AssetTypeID uuid.UUID `json:"asset_type_id"`
 	AssetName   string    `json:"asset_name"`
-	Price       float64   `json:"price"`
-	Value       float64   `json:"value"`
+	Price       int       `json:"price"`
+	Value       int       `json:"value"`
 	Cycle       int       `json:"cycle"`
 	CreatedAt   string    `json:"created_at"`
 }

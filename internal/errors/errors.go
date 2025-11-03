@@ -14,4 +14,6 @@ var (
 	InvalidRequestBody = errors.New("invalid request body")
 
 	CantFindAnySubModules = errors.New("can't find any sub modules")
+
+	ErrorOnCreatingNewAsset = errors.New("error on creating new asset")
 )

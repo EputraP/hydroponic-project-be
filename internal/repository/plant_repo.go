@@ -6,12 +6,14 @@ import (
 	"hydroponic-be/internal/util/logger"
 	"strconv"
 
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type PlantRepository interface {
 	CreateFarm() string
 	GetPlants() (*[]model.Plant, error)
+	GetPlantById(input *uuid.UUID) (*[]model.Plant, error)
 	DeletePlant(inputModel *model.Plant) (*model.OnlyIdResponse, error)
 }
 
@@ -98,6 +100,84 @@ func (r *plantRepository) GetPlants() (*[]model.Plant, error) {
 	}
 
 	logger.Info("plantRepository", "GetPlants fetched successfully", map[string]string{
+		"fetched": strconv.Itoa(len(result)),
+	})
+	return &result, nil
+
+}
+
+func (r *plantRepository) GetPlantById(input *uuid.UUID) (*[]model.Plant, error) {
+
+	logger.Info("plantRepository", "Fetching GetPlantById", map[string]string{
+		"plantID": input.String(),
+	})
+
+	queryResult := &model.Plant{}
+	result := []model.Plant{}
+
+	sqlScript := `select
+					id,
+					plant_name,
+					scientific_name,
+					variety,
+					plant_type,
+					description,
+					ph_min,
+					ph_max,
+					ppm_min,
+					ppm_max,
+					light_hours,
+					optimal_temperature_min,
+					optimal_temperature_max,
+					harvest_days,
+					germination_days,
+					hss_days,
+					hst_days
+				from hydroponic_system.plants
+				where
+					deleted_at is null and id = '%s'
+		`
+	sqlScript = fmt.Sprintf(sqlScript, input.String())
+
+	rows, err := r.db.Raw(sqlScript).Rows()
+	if err != nil {
+		logger.Error("plantRepository", "Failed to fetch GetPlantById", map[string]string{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		if err := rows.Scan(
+			&queryResult.ID,
+			&queryResult.PlantName,
+			&queryResult.ScientificName,
+			&queryResult.Variety,
+			&queryResult.PlantType,
+			&queryResult.Description,
+			&queryResult.PHMin,
+			&queryResult.PHMax,
+			&queryResult.PPMMin,
+			&queryResult.PPMMax,
+			&queryResult.LightHours,
+			&queryResult.TemperatureMin,
+			&queryResult.TemperatureMax,
+			&queryResult.HarvestDays,
+			&queryResult.GerminationDays,
+			&queryResult.HSSDays,
+			&queryResult.HSTDays,
+		); err != nil {
+			logger.Error("plantRepository", "Failed to fetch scan GetPlantById result", map[string]string{
+				"error": err.Error(),
+			})
+			return nil, fmt.Errorf("error scanning row: %w", err)
+		}
+
+		result = append(result, *queryResult)
+	}
+
+	logger.Info("plantRepository", "GetPlantById fetched successfully", map[string]string{
 		"fetched": strconv.Itoa(len(result)),
 	})
 	return &result, nil

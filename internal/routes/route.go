@@ -12,6 +12,7 @@ type Handlers struct {
 	Remark    *handler.RemarkHandler
 	Uom       *handler.UomHandler
 	AssetType *handler.AssetTypeHandler
+	Asset     *handler.AssetHandler
 }
 
 type Middlewares struct {
@@ -38,4 +39,7 @@ func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 
 	asset_type := srv.Group("/asset-type")
 	asset_type.GET("/", h.AssetType.GetAssetTypes)
+
+	asset := srv.Group("/asset")
+	asset.POST("/create", h.Asset.CreateAsset)
 }

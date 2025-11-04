@@ -80,7 +80,7 @@ CREATE TABLE hydroponic_system.assets (
     asset_name varchar NOT NULL,
     price int NOT NULL,
     "value" int NOT NULL,
-    cycle int NOT NULL,
+    cycle int ,
 	created_at timestamptz NULL,
 	updated_at timestamptz NULL,
 	deleted_at timestamptz NULL,

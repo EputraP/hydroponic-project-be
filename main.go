@@ -88,6 +88,9 @@ func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	})
 	assetService := service.NewAssetService(service.AssetServiceConfig{
 		AssetRepo: assetRepo,
+		PlantRepo: plantRepo,
+		UomRepo:   uomRepo,
+		AssetType: assetTypeRepo,
 	})
 
 	logger.Info("main", "Initializing handlers...", nil)

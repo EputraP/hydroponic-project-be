@@ -5,7 +5,6 @@ import (
 	repository "hydroponic-be/internal/repository/admin"
 	"hydroponic-be/internal/routes"
 	service "hydroponic-be/internal/service/admin"
-	"hydroponic-be/internal/util/logger"
 
 	"gorm.io/gorm"
 )
@@ -41,7 +40,6 @@ func prepareAdmin(db *gorm.DB) (handlers routes.HandlersAdmin) {
 		AssetType: assetTypeRepo,
 	})
 
-	logger.Info("main", "Initializing handlers...", nil)
 	plantHandler := handler.NewPlantHandler(handler.PlantHandlerConfig{
 		PlantService: plantService,
 	})

@@ -1,24 +1,33 @@
 package routes
 
 import (
-	handler "hydroponic-be/internal/handler/admin"
+	handlerAdmin "hydroponic-be/internal/handler/admin"
+	handlerGrowing "hydroponic-be/internal/handler/growing"
 
 	"github.com/gin-gonic/gin"
 )
 
 type HandlersAdmin struct {
-	Plant     *handler.PlantHandler
-	Process   *handler.ProcessHandler
-	Remark    *handler.RemarkHandler
-	Uom       *handler.UomHandler
-	AssetType *handler.AssetTypeHandler
-	Asset     *handler.AssetHandler
+	Plant     *handlerAdmin.PlantHandler
+	Process   *handlerAdmin.ProcessHandler
+	Remark    *handlerAdmin.RemarkHandler
+	Uom       *handlerAdmin.UomHandler
+	AssetType *handlerAdmin.AssetTypeHandler
+	Asset     *handlerAdmin.AssetHandler
+}
+
+type HandlersGrowing struct {
+	PlantGrowth *handlerGrowing.PlantGrowthHandler
+}
+type Handlers struct {
+	Admin   HandlersAdmin
+	Growing HandlersGrowing
 }
 
 type Middlewares struct {
 }
 
-func Build(srv *gin.Engine, ha HandlersAdmin, middlewares Middlewares) {
+func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 
-	RoutesAdmin(srv, ha, middlewares)
+	RoutesAdmin(srv, h.Admin, middlewares)
 }

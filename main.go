@@ -30,12 +30,12 @@ func main() {
 		return
 	}
 
-	handlersAdmin, middlewares := setup.Prepare()
+	handlers, middlewares := setup.Prepare()
 
 	srv := gin.Default()
 	srv.Use(middleware.CORS())
 
-	routes.Build(srv, handlersAdmin, middlewares)
+	routes.Build(srv, handlers, middlewares)
 
 	port := os.Getenv("PORT")
 	if port == "" {

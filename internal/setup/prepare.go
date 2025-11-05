@@ -6,11 +6,18 @@ import (
 	"hydroponic-be/internal/util/logger"
 )
 
-func Prepare() (handlersAdmin routes.HandlersAdmin, middlewares routes.Middlewares) {
+func Prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	logger.Info("main", "Initializing dependencies...", nil)
 	db := dbstore.Get()
 
-	handlersAdmin = prepareAdmin(db)
+	handlersAdmin := prepareAdmin(db)
+	handlersGrowing := prepareGrowing(db)
+
+	handlers = routes.Handlers{
+		Admin:   handlersAdmin,
+		Growing: handlersGrowing,
+	}
+
 	logger.Info("main", "Application initialized successfully.", nil)
 	return
 }

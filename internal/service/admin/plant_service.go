@@ -3,7 +3,7 @@ package service
 import (
 	"hydroponic-be/internal/dto"
 	"hydroponic-be/internal/model"
-	"hydroponic-be/internal/repository"
+	repository "hydroponic-be/internal/repository/admin"
 	"hydroponic-be/internal/util/logger"
 
 	"github.com/google/uuid"

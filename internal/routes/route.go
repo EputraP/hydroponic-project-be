@@ -1,12 +1,12 @@
 package routes
 
 import (
-	"hydroponic-be/internal/handler"
+	handler "hydroponic-be/internal/handler/admin"
 
 	"github.com/gin-gonic/gin"
 )
 
-type Handlers struct {
+type HandlersAdmin struct {
 	Plant     *handler.PlantHandler
 	Process   *handler.ProcessHandler
 	Remark    *handler.RemarkHandler
@@ -18,29 +18,7 @@ type Handlers struct {
 type Middlewares struct {
 }
 
-func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
+func Build(srv *gin.Engine, ha HandlersAdmin, middlewares Middlewares) {
 
-	plant := srv.Group("/plant")
-	plant.POST("/create", h.Plant.CreatePlant)
-	plant.GET("/", h.Plant.GetPlants)
-	plant.DELETE("/:plantId", h.Plant.DeletePlant)
-
-	process := srv.Group("/process")
-	process.GET("/", h.Process.GetProcesses)
-	process.GET("/modules", h.Process.GetModules)
-	process.GET("/modules/:processId", h.Process.GetSubModules)
-
-	remark := srv.Group("/remark")
-	remark.GET("/", h.Remark.GetRemarks)
-	remark.GET("/by-process/:processId", h.Remark.GetRemarksByProcessId)
-
-	uom := srv.Group("/uom")
-	uom.GET("/", h.Uom.GetUoms)
-
-	asset_type := srv.Group("/asset-type")
-	asset_type.GET("/", h.AssetType.GetAssetTypes)
-
-	asset := srv.Group("/asset")
-	asset.POST("/create", h.Asset.CreateAsset)
-	asset.GET("/", h.Asset.GetAssets)
+	RoutesAdmin(srv, ha, middlewares)
 }

@@ -54,3 +54,19 @@ func (h *AssetHandler) CreateAsset(c *gin.Context) {
 
 	response.JSON(c, 201, "Create Asset Success", resp)
 }
+
+func (h *AssetHandler) GetAssets(c *gin.Context) {
+
+	logger.Info("assetHanlder", "Init GetAssets handler", nil)
+
+	resp, err := h.assetService.GetAssets()
+	if err != nil {
+		logger.Error("assetHanlder", "Failed to execute GetAssets Service", map[string]string{
+			"error": err.Error(),
+		})
+		response.Error(c, 400, err.Error())
+		return
+	}
+
+	response.JSON(c, 200, "GetAssets Success", resp)
+}

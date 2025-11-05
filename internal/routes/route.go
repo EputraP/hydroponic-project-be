@@ -42,4 +42,5 @@ func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 
 	asset := srv.Group("/asset")
 	asset.POST("/create", h.Asset.CreateAsset)
+	asset.GET("/", h.Asset.GetAssets)
 }

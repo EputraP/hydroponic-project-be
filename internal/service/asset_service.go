@@ -10,6 +10,7 @@ import (
 
 type AssetService interface {
 	CreateAsset(input *dto.Asset) (*dto.Asset, error)
+	GetAssets() (*[]model.Asset, error)
 }
 
 type assetService struct {
@@ -92,4 +93,19 @@ func (s *assetService) CreateAsset(input *dto.Asset) (*dto.Asset, error) {
 		Value:       createdAsset.Value,
 		Cycle:       createdAsset.Cycle,
 	}, nil
+}
+
+func (s *assetService) GetAssets() (*[]model.Asset, error) {
+	logger.Info("assetService", "Init GetAssets Service", nil)
+
+	res, err := s.assetRepo.GetAssets()
+	if err != nil {
+		logger.Error("assetService", "Failed to fetch GetAssets Repo", map[string]string{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+
+	logger.Info("assetService", "Finished GetAssets Service", map[string]string{})
+	return res, nil
 }

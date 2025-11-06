@@ -1,7 +1,7 @@
 package service
 
 import (
-	"hydroponic-be/internal/dto"
+	dto "hydroponic-be/internal/dto/admin"
 	errs "hydroponic-be/internal/errors"
 	model "hydroponic-be/internal/model/admin"
 	repository "hydroponic-be/internal/repository/admin"

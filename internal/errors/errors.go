@@ -19,4 +19,6 @@ var (
 	InvalidPlantId          = errors.New("invalid plant id")
 	InvalidUoMId            = errors.New("invalid uom id")
 	InvalidAssetTypeId      = errors.New("invalid asset type id")
+
+	ErrorOnCreatingNewPlantGrowthRecord = errors.New("error on creating new plant growth record")
 )

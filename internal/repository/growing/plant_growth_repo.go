@@ -28,7 +28,7 @@ func (r *plantGrowthRepository) CreatePlantGrowth(input *model.PlantGrowth) (*mo
 
 	sqlScript := `INSERT INTO hydroponic_system.plant_growth
 						( tower_id, process_id, "cycle", hss, hst, height, ph, ppm, water_level, ovr_plant_condition, remarks, plant_amount, created_at)
-				  VALUES('%s', '%s', %d, %d, %d, %d, %f, %f, %d, %s, %s, %d, NOW());
+				  VALUES('%s', '%s', %d, %d, %d, %d, %f, %f, %d, '%s', '%s', %d, NOW());
 		`
 	sqlScript = fmt.Sprintf(sqlScript,
 		input.TowerId,

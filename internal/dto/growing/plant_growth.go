@@ -8,7 +8,7 @@ type PlantGrowth struct {
 	Cycle             int       `json:"cycle"`
 	HSS               int       `json:"hss"`
 	HST               int       `json:"hst"`
-	Height            int       `json:"value"`
+	Height            int       `json:"height"`
 	PH                float32   `json:"ph"`
 	PPM               float32   `json:"ppm"`
 	WaterLevel        int       `json:"water_level"`

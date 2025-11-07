@@ -22,4 +22,5 @@ var (
 
 	ErrorOnCreatingNewPlantGrowthRecord = errors.New("error on creating new plant growth record")
 	InvalidAssetId                      = errors.New("invalid asset id")
+	InvalidProcessId                    = errors.New("invalid process id")
 )

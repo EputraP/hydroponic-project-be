@@ -10,10 +10,12 @@ func prepareGrowing(db *DBs) (handlers routes.HandlersGrowing) {
 
 	plantGrowthRepo := *db.Growing.PlantGrowthRepo
 	assetRepo := *db.Admin.AssetRepo
+	processRepo := *db.Admin.ProcessRepo
 
 	plantService := service.NewPlantGrowthService(service.PlantGrowthServiceConfig{
 		PlantGrowthRepo: plantGrowthRepo,
 		AssetRepo:       assetRepo,
+		ProcessRepo:     processRepo,
 	})
 
 	plantGrowthHandler := handler.NewPlantGrowthHandler(handler.PlantGrowthHandlerConfig{

@@ -16,17 +16,20 @@ type PlantGrowthService interface {
 type plantGrowthService struct {
 	plantGrowthRepo repository.PlantGrowthRepository
 	assetRepo       adminRepository.AssetRepository
+	processRepo     adminRepository.ProcessRepository
 }
 
 type PlantGrowthServiceConfig struct {
 	PlantGrowthRepo repository.PlantGrowthRepository
 	AssetRepo       adminRepository.AssetRepository
+	ProcessRepo     adminRepository.ProcessRepository
 }
 
 func NewPlantGrowthService(config PlantGrowthServiceConfig) PlantGrowthService {
 	return &plantGrowthService{
 		plantGrowthRepo: config.PlantGrowthRepo,
 		assetRepo:       config.AssetRepo,
+		processRepo:     config.ProcessRepo,
 	}
 }
 
@@ -36,9 +39,17 @@ func (s *plantGrowthService) CreatePlantGrowth(input *dto.PlantGrowth) (*dto.Pla
 	assetById, err := s.assetRepo.GetAssetById(&input.TowerId)
 	if err != nil || len(*assetById) == 0 {
 		logger.Error("plantGrowthService", "Invalid AssetId provided", map[string]string{
-			"error": errs.InvalidPlantId.Error(),
+			"error": errs.InvalidAssetId.Error(),
 		})
 		return nil, errs.InvalidAssetId
+	}
+
+	processById, err := s.processRepo.GetProcessById(&input.ProcessId)
+	if err != nil || len(*processById) == 0 {
+		logger.Error("plantGrowthService", "Invalid ProcessIs provided", map[string]string{
+			"error": errs.InvalidProcessId.Error(),
+		})
+		return nil, errs.InvalidProcessId
 	}
 
 	createdAsset, err := s.plantGrowthRepo.CreatePlantGrowth(&model.PlantGrowth{

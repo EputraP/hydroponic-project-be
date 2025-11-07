@@ -12,6 +12,7 @@ import (
 
 type ProcessRepository interface {
 	GetProcesses() (*[]model.Process, error)
+	GetProcessById(input *uuid.UUID) (*[]model.Process, error)
 	GetModules() (*[]model.Process, error)
 	GetSubModulesByProcessId(processId *uuid.UUID) (*[]model.Process, error)
 }
@@ -69,6 +70,55 @@ func (r *processRepository) GetProcesses() (*[]model.Process, error) {
 	}
 
 	logger.Info("processRepository", "GetProcesses fetched successfully", map[string]string{
+		"fetched": strconv.Itoa(len(result)),
+	})
+	return &result, nil
+
+}
+
+func (r *processRepository) GetProcessById(input *uuid.UUID) (*[]model.Process, error) {
+
+	logger.Info("processRepository", "Fetching GetProcessById", map[string]string{})
+
+	queryResult := &model.Process{}
+	result := []model.Process{}
+
+	sqlScript := `select
+					id,
+					process_name,
+					description
+				from hydroponic_system.process
+				where
+					deleted_at is null and id = '%s'
+		`
+
+	sqlScript = fmt.Sprintf(sqlScript, input.String())
+
+	rows, err := r.db.Raw(sqlScript).Rows()
+	if err != nil {
+		logger.Error("processRepository", "Failed to fetch GetProcessById", map[string]string{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		if err := rows.Scan(
+			&queryResult.ID,
+			&queryResult.ProcessName,
+			&queryResult.Description,
+		); err != nil {
+			logger.Error("processRepository", "Failed to fetch scan GetProcessById result", map[string]string{
+				"error": err.Error(),
+			})
+			return nil, fmt.Errorf("error scanning row: %w", err)
+		}
+
+		result = append(result, *queryResult)
+	}
+
+	logger.Info("processRepository", "GetProcessById fetched successfully", map[string]string{
 		"fetched": strconv.Itoa(len(result)),
 	})
 	return &result, nil

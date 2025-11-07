@@ -2,24 +2,21 @@ package setup
 
 import (
 	handler "hydroponic-be/internal/handler/admin"
-	repository "hydroponic-be/internal/repository/admin"
 	"hydroponic-be/internal/routes"
 	service "hydroponic-be/internal/service/admin"
-
-	"gorm.io/gorm"
 )
 
-func prepareAdmin(db *gorm.DB) (handlers routes.HandlersAdmin) {
+func prepareAdmin(db *DBs) (handlers routes.HandlersAdmin) {
 
-	plantRepo := repository.NewPlantRepository(db)
-	processRepo := repository.NewProcessRepository(db)
-	remarkRepo := repository.NewRemarkRepository(db)
-	uomRepo := repository.NewUomRepository(db)
-	assetTypeRepo := repository.NewAssetTypeRepository(db)
-	assetRepo := repository.NewAssetRepository(db)
+	PlantRepo := *db.Admin.PlantRepo
+	processRepo := *db.Admin.ProcessRepo
+	remarkRepo := *db.Admin.RemarkRepo
+	uomRepo := *db.Admin.UomRepo
+	assetTypeRepo := *db.Admin.AssetTypeRepo
+	assetRepo := *db.Admin.AssetRepo
 
 	plantService := service.NewPlantService(service.PlantServiceConfig{
-		PlantRepo: plantRepo,
+		PlantRepo: PlantRepo,
 	})
 	processService := service.NewProcessService(service.ProcessServiceConfig{
 		ProcessRepo: processRepo,
@@ -35,7 +32,7 @@ func prepareAdmin(db *gorm.DB) (handlers routes.HandlersAdmin) {
 	})
 	assetService := service.NewAssetService(service.AssetServiceConfig{
 		AssetRepo: assetRepo,
-		PlantRepo: plantRepo,
+		PlantRepo: PlantRepo,
 		UomRepo:   uomRepo,
 		AssetType: assetTypeRepo,
 	})

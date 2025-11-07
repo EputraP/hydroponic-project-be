@@ -2,19 +2,18 @@ package setup
 
 import (
 	handler "hydroponic-be/internal/handler/growing"
-	repository "hydroponic-be/internal/repository/growing"
 	"hydroponic-be/internal/routes"
 	service "hydroponic-be/internal/service/growing"
-
-	"gorm.io/gorm"
 )
 
-func prepareGrowing(db *gorm.DB) (handlers routes.HandlersGrowing) {
+func prepareGrowing(db *DBs) (handlers routes.HandlersGrowing) {
 
-	plantGrowthRepo := repository.NewPlantGrowthRepository(db)
+	plantGrowthRepo := *db.Growing.PlantGrowthRepo
+	assetRepo := *db.Admin.AssetRepo
 
 	plantService := service.NewPlantGrowthService(service.PlantGrowthServiceConfig{
 		PlantGrowthRepo: plantGrowthRepo,
+		AssetRepo:       assetRepo,
 	})
 
 	plantGrowthHandler := handler.NewPlantGrowthHandler(handler.PlantGrowthHandlerConfig{

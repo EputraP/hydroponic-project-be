@@ -10,8 +10,10 @@ func Prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 	logger.Info("main", "Initializing dependencies...", nil)
 	db := dbstore.Get()
 
-	handlersAdmin := prepareAdmin(db)
-	handlersGrowing := prepareGrowing(db)
+	dbs := prepareDb(db)
+
+	handlersAdmin := prepareAdmin(dbs)
+	handlersGrowing := prepareGrowing(dbs)
 
 	handlers = routes.Handlers{
 		Admin:   handlersAdmin,

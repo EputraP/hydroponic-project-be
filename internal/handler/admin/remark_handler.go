@@ -2,7 +2,7 @@ package handler
 
 import (
 	"fmt"
-	"hydroponic-be/internal/service"
+	service "hydroponic-be/internal/service/admin"
 	"hydroponic-be/internal/util/logger"
 	"hydroponic-be/internal/util/response"
 

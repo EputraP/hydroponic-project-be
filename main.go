@@ -2,12 +2,9 @@ package main
 
 import (
 	"fmt"
-	"hydroponic-be/internal/handler"
 	"hydroponic-be/internal/middleware"
-	"hydroponic-be/internal/repository"
 	"hydroponic-be/internal/routes"
-	"hydroponic-be/internal/service"
-	dbstore "hydroponic-be/internal/store"
+	setup "hydroponic-be/internal/setup"
 	"hydroponic-be/internal/util/logger"
 	"os"
 
@@ -33,7 +30,7 @@ func main() {
 		return
 	}
 
-	handlers, middlewares := prepare()
+	handlers, middlewares := setup.Prepare()
 
 	srv := gin.Default()
 	srv.Use(middleware.CORS())
@@ -55,73 +52,4 @@ func main() {
 			"error": err.Error(),
 		})
 	}
-}
-
-func prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
-	logger.Info("main", "Initializing dependencies...", nil)
-
-	db := dbstore.Get()
-
-	logger.Info("main", "Initializing repositories...", nil)
-	plantRepo := repository.NewPlantRepository(db)
-	processRepo := repository.NewProcessRepository(db)
-	remarkRepo := repository.NewRemarkRepository(db)
-	uomRepo := repository.NewUomRepository(db)
-	assetTypeRepo := repository.NewAssetTypeRepository(db)
-	assetRepo := repository.NewAssetRepository(db)
-
-	logger.Info("main", "Initializing services...", nil)
-	plantService := service.NewPlantService(service.PlantServiceConfig{
-		PlantRepo: plantRepo,
-	})
-	processService := service.NewProcessService(service.ProcessServiceConfig{
-		ProcessRepo: processRepo,
-	})
-	remarkService := service.NewRemarkService(service.RemarkServiceConfig{
-		RemarkRepo: remarkRepo,
-	})
-	uomService := service.NewUomService(service.UomServiceConfig{
-		UomRepo: uomRepo,
-	})
-	assetTypeService := service.NewAssetTypeService(service.AssetTypeServiceConfig{
-		AssetTypeRepo: assetTypeRepo,
-	})
-	assetService := service.NewAssetService(service.AssetServiceConfig{
-		AssetRepo: assetRepo,
-		PlantRepo: plantRepo,
-		UomRepo:   uomRepo,
-		AssetType: assetTypeRepo,
-	})
-
-	logger.Info("main", "Initializing handlers...", nil)
-	plantHandler := handler.NewPlantHandler(handler.PlantHandlerConfig{
-		PlantService: plantService,
-	})
-	processHandler := handler.NewProcessHandler(handler.ProcessHandlerConfig{
-		ProcessService: processService,
-	})
-	remarkHandler := handler.NewRemarkHandler(handler.RemarkHandlerConfig{
-		RemarkService: remarkService,
-	})
-	uomHandler := handler.NewUomHandler(handler.UomHandlerConfig{
-		UomService: uomService,
-	})
-	assetTypeHandler := handler.NewAssetTypeHandler(handler.AssetTypeHandlerConfig{
-		AssetTypeService: assetTypeService,
-	})
-	assetHandler := handler.NewAssetHandler(handler.AssetHandlerConfig{
-		AssetService: assetService,
-	})
-
-	handlers = routes.Handlers{
-		Plant:     plantHandler,
-		Process:   processHandler,
-		Remark:    remarkHandler,
-		Uom:       uomHandler,
-		AssetType: assetTypeHandler,
-		Asset:     assetHandler,
-	}
-
-	logger.Info("main", "Application initialized successfully.", nil)
-	return
 }

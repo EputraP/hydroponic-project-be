@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"hydroponic-be/internal/dto"
+	dto "hydroponic-be/internal/dto/admin"
 	errs "hydroponic-be/internal/errors"
-	"hydroponic-be/internal/service"
+	service "hydroponic-be/internal/service/admin"
 	"hydroponic-be/internal/util/logger"
 	"hydroponic-be/internal/util/response"
 

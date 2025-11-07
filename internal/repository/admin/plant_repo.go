@@ -2,7 +2,7 @@ package repository
 
 import (
 	"fmt"
-	"hydroponic-be/internal/model"
+	model "hydroponic-be/internal/model/admin"
 	"hydroponic-be/internal/util/logger"
 	"strconv"
 

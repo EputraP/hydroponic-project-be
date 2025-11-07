@@ -1,18 +1,27 @@
 package routes
 
 import (
-	"hydroponic-be/internal/handler"
+	handlerAdmin "hydroponic-be/internal/handler/admin"
+	handlerGrowing "hydroponic-be/internal/handler/growing"
 
 	"github.com/gin-gonic/gin"
 )
 
+type HandlersAdmin struct {
+	Plant     *handlerAdmin.PlantHandler
+	Process   *handlerAdmin.ProcessHandler
+	Remark    *handlerAdmin.RemarkHandler
+	Uom       *handlerAdmin.UomHandler
+	AssetType *handlerAdmin.AssetTypeHandler
+	Asset     *handlerAdmin.AssetHandler
+}
+
+type HandlersGrowing struct {
+	PlantGrowth *handlerGrowing.PlantGrowthHandler
+}
 type Handlers struct {
-	Plant     *handler.PlantHandler
-	Process   *handler.ProcessHandler
-	Remark    *handler.RemarkHandler
-	Uom       *handler.UomHandler
-	AssetType *handler.AssetTypeHandler
-	Asset     *handler.AssetHandler
+	Admin   HandlersAdmin
+	Growing HandlersGrowing
 }
 
 type Middlewares struct {
@@ -20,27 +29,6 @@ type Middlewares struct {
 
 func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 
-	plant := srv.Group("/plant")
-	plant.POST("/create", h.Plant.CreatePlant)
-	plant.GET("/", h.Plant.GetPlants)
-	plant.DELETE("/:plantId", h.Plant.DeletePlant)
-
-	process := srv.Group("/process")
-	process.GET("/", h.Process.GetProcesses)
-	process.GET("/modules", h.Process.GetModules)
-	process.GET("/modules/:processId", h.Process.GetSubModules)
-
-	remark := srv.Group("/remark")
-	remark.GET("/", h.Remark.GetRemarks)
-	remark.GET("/by-process/:processId", h.Remark.GetRemarksByProcessId)
-
-	uom := srv.Group("/uom")
-	uom.GET("/", h.Uom.GetUoms)
-
-	asset_type := srv.Group("/asset-type")
-	asset_type.GET("/", h.AssetType.GetAssetTypes)
-
-	asset := srv.Group("/asset")
-	asset.POST("/create", h.Asset.CreateAsset)
-	asset.GET("/", h.Asset.GetAssets)
+	RoutesAdmin(srv, h.Admin, middlewares)
+	RoutesGrowing(srv, h.Growing, middlewares)
 }

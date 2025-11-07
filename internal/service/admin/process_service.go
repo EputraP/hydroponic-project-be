@@ -3,8 +3,8 @@ package service
 import (
 	"hydroponic-be/internal/dto"
 	errs "hydroponic-be/internal/errors"
-	"hydroponic-be/internal/model"
-	"hydroponic-be/internal/repository"
+	model "hydroponic-be/internal/model/admin"
+	repository "hydroponic-be/internal/repository/admin"
 	"hydroponic-be/internal/util/logger"
 
 	"github.com/google/uuid"

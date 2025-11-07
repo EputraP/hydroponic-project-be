@@ -4,6 +4,7 @@ import (
 	dto "hydroponic-be/internal/dto/growing"
 	errs "hydroponic-be/internal/errors"
 	model "hydroponic-be/internal/model/growing"
+	adminRepository "hydroponic-be/internal/repository/admin"
 	repository "hydroponic-be/internal/repository/growing"
 	"hydroponic-be/internal/util/logger"
 )
@@ -14,20 +15,31 @@ type PlantGrowthService interface {
 
 type plantGrowthService struct {
 	plantGrowthRepo repository.PlantGrowthRepository
+	assetRepo       adminRepository.AssetRepository
 }
 
 type PlantGrowthServiceConfig struct {
 	PlantGrowthRepo repository.PlantGrowthRepository
+	AssetRepo       adminRepository.AssetRepository
 }
 
 func NewPlantGrowthService(config PlantGrowthServiceConfig) PlantGrowthService {
 	return &plantGrowthService{
 		plantGrowthRepo: config.PlantGrowthRepo,
+		assetRepo:       config.AssetRepo,
 	}
 }
 
 func (s *plantGrowthService) CreatePlantGrowth(input *dto.PlantGrowth) (*dto.PlantGrowth, error) {
 	logger.Info("plantGrowthService", "Creating new plant growth", map[string]string{})
+
+	assetById, err := s.assetRepo.GetAssetById(&input.TowerId)
+	if err != nil || len(*assetById) == 0 {
+		logger.Error("plantGrowthService", "Invalid AssetId provided", map[string]string{
+			"error": errs.InvalidPlantId.Error(),
+		})
+		return nil, errs.InvalidAssetId
+	}
 
 	createdAsset, err := s.plantGrowthRepo.CreatePlantGrowth(&model.PlantGrowth{
 		TowerId:           input.TowerId,

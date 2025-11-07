@@ -16,7 +16,8 @@ type DBsAdmin struct {
 	AssetRepo     *repositoryAdmin.AssetRepository
 }
 type DBsGrowing struct {
-	PlantGrowthRepo *repositoryGrowing.PlantGrowthRepository
+	PlantGrowthRepo             *repositoryGrowing.PlantGrowthRepository
+	UnhealthyPlantTreatmentRepo *repositoryGrowing.UnhealthyPlantTreatmentRepository
 }
 type DBs struct {
 	Admin   *DBsAdmin
@@ -33,6 +34,7 @@ func prepareDb(db *gorm.DB) (dbs *DBs) {
 	assetRepo := repositoryAdmin.NewAssetRepository(db)
 
 	plantGrowthRepo := repositoryGrowing.NewPlantGrowthRepository(db)
+	unhealthyPlantTreatmentRepo := repositoryGrowing.NewUnhealthyPlantTreatmentRepository(db)
 
 	dbsAdmin := &DBsAdmin{
 		PlantRepo:     &PlantRepo,
@@ -44,7 +46,8 @@ func prepareDb(db *gorm.DB) (dbs *DBs) {
 	}
 
 	dbsGrowing := &DBsGrowing{
-		PlantGrowthRepo: &plantGrowthRepo,
+		PlantGrowthRepo:             &plantGrowthRepo,
+		UnhealthyPlantTreatmentRepo: &unhealthyPlantTreatmentRepo,
 	}
 
 	dbs = &DBs{

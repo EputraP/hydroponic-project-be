@@ -11,6 +11,7 @@ import (
 
 type PlantGrowthService interface {
 	CreatePlantGrowth(input *dto.PlantGrowth) (*dto.PlantGrowth, error)
+	GetPlantGrowths() (*[]model.PlantGrowth, error)
 }
 
 type plantGrowthService struct {
@@ -88,4 +89,19 @@ func (s *plantGrowthService) CreatePlantGrowth(input *dto.PlantGrowth) (*dto.Pla
 		Remarks:           createdAsset.Remarks,
 		PlantAmount:       createdAsset.PlantAmount,
 	}, nil
+}
+
+func (s *plantGrowthService) GetPlantGrowths() (*[]model.PlantGrowth, error) {
+	logger.Info("plantGrowthService", "Init GetProcesses Service", nil)
+
+	res, err := s.plantGrowthRepo.GetPlantGrowths()
+	if err != nil {
+		logger.Error("plantGrowthService", "Failed to fetch GetPlantGrowths Repo", map[string]string{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+
+	logger.Info("plantGrowthService", "Finished GetPlantGrowths Service", map[string]string{})
+	return res, nil
 }

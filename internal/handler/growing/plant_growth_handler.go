@@ -50,3 +50,19 @@ func (h *PlantGrowthHandler) CreatePlantGrowth(c *gin.Context) {
 
 	response.JSON(c, 201, "Create Plant Growth Record Success", resp)
 }
+
+func (h *PlantGrowthHandler) GetPlantGrowths(c *gin.Context) {
+
+	logger.Info("PlantGrowthHandler", "Init GetPlantGrowths handler", nil)
+
+	resp, err := h.plantGrowthService.GetPlantGrowths()
+	if err != nil {
+		logger.Error("PlantGrowthHandler", "Failed to execute GetPlantGrowths Service", map[string]string{
+			"error": err.Error(),
+		})
+		response.Error(c, 400, err.Error())
+		return
+	}
+
+	response.JSON(c, 200, "GetPlantGrowths Success", resp)
+}

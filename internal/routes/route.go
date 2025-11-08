@@ -17,7 +17,8 @@ type HandlersAdmin struct {
 }
 
 type HandlersGrowing struct {
-	PlantGrowth *handlerGrowing.PlantGrowthHandler
+	PlantGrowth             *handlerGrowing.PlantGrowthHandler
+	UnhealthyPlantTreatment *handlerGrowing.UnhealthyPlantTreatmentHandler
 }
 type Handlers struct {
 	Admin   HandlersAdmin

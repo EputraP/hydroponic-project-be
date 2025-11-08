@@ -123,7 +123,7 @@ CREATE TABLE hydroponic_system.unhealthy_plant_treatment (
     tower_id uuid NOT NULL,
     cycle int NOT NULL,
     tower_hole_no int NOT NULL,
-    treatment int NOT NULL,
+    treatment varchar NOT NULL,
     after_treatment varchar NOT NULL,
 	created_at timestamptz NULL,
 	updated_at timestamptz NULL,

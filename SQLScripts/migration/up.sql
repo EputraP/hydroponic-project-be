@@ -124,7 +124,7 @@ CREATE TABLE hydroponic_system.unhealthy_plant_treatment (
     cycle int NOT NULL,
     tower_hole_no int NOT NULL,
     treatment int NOT NULL,
-    cond_after_tret varchar NOT NULL,
+    after_treatment varchar NOT NULL,
 	created_at timestamptz NULL,
 	updated_at timestamptz NULL,
 	deleted_at timestamptz NULL,

@@ -87,6 +87,48 @@ VALUES
 ('Assets', 'Sub Module', 2,(SELECT id FROM hydroponic_system.process WHERE process_name = 'Admin'),now(), NULL),
 ('Plants', 'Sub Module', 2,(SELECT id FROM hydroponic_system.process WHERE process_name = 'Admin'),now(), NULL);
 
+INSERT INTO hydroponic_system.process (process_name,description,type,process_id,created_at)
+VALUES
+('Inspect & Identify', 
+ 'Inspect leaves, stems, roots, and environment to determine cause of plant stress before taking action.', 
+ 3, NULL, NOW()),
+('Water Management', 
+ 'Adjust watering frequency, improve drainage, or increase aeration to prevent root suffocation or rot.', 
+ 3, NULL, NOW()),
+('pH Adjustment', 
+ 'Measure and correct pH to optimal range (5.8–6.5 for hydroponics) for nutrient absorption and root health.', 
+ 3, NULL, NOW()),
+('Flush Medium / Salt Removal', 
+ 'Flush the medium or reservoir with clean, pH-balanced water to remove nutrient or salt buildup.', 
+ 3, NULL, NOW()),
+('Refeed with Balanced Nutrients', 
+ 'Provide a balanced nutrient mix after flushing or deficiency correction to restore proper growth.', 
+ 3, NULL, NOW()),
+('Root Rescue / Replant', 
+ 'Trim damaged roots, rinse them, and replant in clean medium to recover from root rot or oxygen deprivation.', 
+ 3, NULL, NOW()),
+('Light & Temperature Optimization', 
+ 'Adjust light distance and ensure stable temperature and humidity to reduce stress and leaf burn.', 
+ 3, NULL, NOW()),
+('Pest Control — Organic Treatment', 
+ 'Use neem oil or insecticidal soap to remove pests and prevent further infestation.', 
+ 3, NULL, NOW()),
+('Fungal Control — Airflow & Baking Soda Spray', 
+ 'Improve air circulation and apply mild fungicide or baking soda spray to treat fungal infections.', 
+ 3, NULL, NOW()),
+('Sterilize Tools & Clean Equipment', 
+ 'Disinfect tools, trays, and reservoirs to prevent disease spread among plants.', 
+ 3, NULL, NOW()),
+('Prune & Remove Dead Tissue', 
+ 'Cut away diseased or dead leaves to redirect energy and reduce infection risk.', 
+ 3, NULL, NOW()),
+('Foliar Feeding', 
+ 'Apply dilute foliar nutrient spray to correct deficiencies quickly through leaf absorption.', 
+ 3, NULL, NOW()),
+('Isolation & Quarantine', 
+ 'Move unhealthy plants away from healthy ones to prevent disease or pest spread.', 
+ 3, NULL, NOW());
+
 
 
 INSERT INTO hydroponic_system.remarks (process_id, remark, description, created_at, updated_at, deleted_at)

@@ -19,7 +19,8 @@ func prepareGrowing(db *DBs) (handlers routes.HandlersGrowing) {
 		ProcessRepo:     processRepo,
 	})
 	unhealthyPlantTreatmentService := service.NewUnhealthyPlantTreatmentService(service.UnhealthyPlantTreatmentServiceConfig{
-		PlantGrowthRepo: unhealthyPlantTreatmentRepo,
+		UnhealthyPlantTreatmentRepo: unhealthyPlantTreatmentRepo,
+		AssetRepo:                   assetRepo,
 	})
 
 	plantGrowthHandler := handler.NewPlantGrowthHandler(handler.PlantGrowthHandlerConfig{

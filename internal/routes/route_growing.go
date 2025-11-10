@@ -9,4 +9,5 @@ func RoutesGrowing(srv *gin.Engine, h HandlersGrowing, middlewares Middlewares) 
 
 	unhealthyPlantTreatment := srv.Group("/unhealthy-plant-treatment")
 	unhealthyPlantTreatment.POST("/create", h.UnhealthyPlantTreatment.CreateUnhealthyPlantTreatment)
+	unhealthyPlantTreatment.GET("/", h.UnhealthyPlantTreatment.GetUnhealthyPlantTreatment)
 }

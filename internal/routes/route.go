@@ -3,6 +3,7 @@ package routes
 import (
 	handlerAdmin "hydroponic-be/internal/handler/admin"
 	handlerGrowing "hydroponic-be/internal/handler/growing"
+	handlerTransaction "hydroponic-be/internal/handler/transaction"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,10 +16,12 @@ type HandlersAdmin struct {
 	AssetType *handlerAdmin.AssetTypeHandler
 	Asset     *handlerAdmin.AssetHandler
 }
-
 type HandlersGrowing struct {
 	PlantGrowth             *handlerGrowing.PlantGrowthHandler
 	UnhealthyPlantTreatment *handlerGrowing.UnhealthyPlantTreatmentHandler
+}
+type HandlersTransaction struct {
+	AssetOpsTransaction *handlerTransaction.AssetOpsTransactionHandler
 }
 type Handlers struct {
 	Admin   HandlersAdmin

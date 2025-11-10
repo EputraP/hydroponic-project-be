@@ -3,6 +3,7 @@ package setup
 import (
 	repositoryAdmin "hydroponic-be/internal/repository/admin"
 	repositoryGrowing "hydroponic-be/internal/repository/growing"
+	repositoryTransaction "hydroponic-be/internal/repository/transaction"
 
 	"gorm.io/gorm"
 )
@@ -19,9 +20,13 @@ type DBsGrowing struct {
 	PlantGrowthRepo             *repositoryGrowing.PlantGrowthRepository
 	UnhealthyPlantTreatmentRepo *repositoryGrowing.UnhealthyPlantTreatmentRepository
 }
+type DBsTransaction struct {
+	AssetOpsTransactionRepo *repositoryTransaction.AssetOpsTransactionRepository
+}
 type DBs struct {
-	Admin   *DBsAdmin
-	Growing *DBsGrowing
+	Admin       *DBsAdmin
+	Growing     *DBsGrowing
+	Transaction *DBsTransaction
 }
 
 func prepareDb(db *gorm.DB) (dbs *DBs) {
@@ -35,6 +40,8 @@ func prepareDb(db *gorm.DB) (dbs *DBs) {
 
 	plantGrowthRepo := repositoryGrowing.NewPlantGrowthRepository(db)
 	unhealthyPlantTreatmentRepo := repositoryGrowing.NewUnhealthyPlantTreatmentRepository(db)
+
+	assetOpsTransactionRepo := repositoryTransaction.NewAssetOpsTransactionRepository(db)
 
 	dbsAdmin := &DBsAdmin{
 		PlantRepo:     &PlantRepo,
@@ -50,9 +57,14 @@ func prepareDb(db *gorm.DB) (dbs *DBs) {
 		UnhealthyPlantTreatmentRepo: &unhealthyPlantTreatmentRepo,
 	}
 
+	dbsTransaction := &DBsTransaction{
+		AssetOpsTransactionRepo: &assetOpsTransactionRepo,
+	}
+
 	dbs = &DBs{
-		Admin:   dbsAdmin,
-		Growing: dbsGrowing,
+		Admin:       dbsAdmin,
+		Growing:     dbsGrowing,
+		Transaction: dbsTransaction,
 	}
 
 	return

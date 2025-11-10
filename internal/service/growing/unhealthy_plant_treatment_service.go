@@ -11,6 +11,7 @@ import (
 
 type UnhealthyPlantTreatmentService interface {
 	CreateUnhealthyPlantTreatment(input *dto.UnhealthyPlantTreatment) (*dto.UnhealthyPlantTreatment, error)
+	GetUnhealthyPlantTreatment() (*[]model.UnhealthyPlantTreatment, error)
 }
 
 type unhealthyPlantTreatmentService struct {
@@ -65,4 +66,19 @@ func (s *unhealthyPlantTreatmentService) CreateUnhealthyPlantTreatment(input *dt
 		Treatment:      createdPlantTreatment.Treatment,
 		AfterTreatment: createdPlantTreatment.AfterTreatment,
 	}, nil
+}
+
+func (s *unhealthyPlantTreatmentService) GetUnhealthyPlantTreatment() (*[]model.UnhealthyPlantTreatment, error) {
+	logger.Info("unhealthyPlantTreatmentService", "Init GetUnhealthyPlantTreatment Service", nil)
+
+	res, err := s.unhealthyPlantTreatmentRepo.GetUnhealthyPlantTreatment()
+	if err != nil {
+		logger.Error("unhealthyPlantTreatmentService", "Failed to fetch GetUnhealthyPlantTreatment Repo", map[string]string{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+
+	logger.Info("unhealthyPlantTreatmentService", "Finished GetUnhealthyPlantTreatment Service", map[string]string{})
+	return res, nil
 }

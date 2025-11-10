@@ -50,3 +50,19 @@ func (h *UnhealthyPlantTreatmentHandler) CreateUnhealthyPlantTreatment(c *gin.Co
 
 	response.JSON(c, 201, "Create Unhealthy Plant Treatment Record Success", resp)
 }
+
+func (h *UnhealthyPlantTreatmentHandler) GetUnhealthyPlantTreatment(c *gin.Context) {
+
+	logger.Info("UnhealthyPlantTreatmentHandler", "Init GetUnhealthyPlantTreatment handler", nil)
+
+	resp, err := h.unhealthyPlantTreatmentService.GetUnhealthyPlantTreatment()
+	if err != nil {
+		logger.Error("UnhealthyPlantTreatmentHandler", "Failed to execute GetUnhealthyPlantTreatment Service", map[string]string{
+			"error": err.Error(),
+		})
+		response.Error(c, 400, err.Error())
+		return
+	}
+
+	response.JSON(c, 200, "GetUnhealthyPlantTreatment Success", resp)
+}

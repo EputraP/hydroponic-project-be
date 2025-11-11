@@ -14,10 +14,12 @@ func Prepare() (handlers routes.Handlers, middlewares routes.Middlewares) {
 
 	handlersAdmin := prepareAdmin(dbs)
 	handlersGrowing := prepareGrowing(dbs)
+	handlerTransaction := prepareTransaction(dbs)
 
 	handlers = routes.Handlers{
-		Admin:   handlersAdmin,
-		Growing: handlersGrowing,
+		Admin:       handlersAdmin,
+		Growing:     handlersGrowing,
+		Transaction: handlerTransaction,
 	}
 
 	logger.Info("main", "Application initialized successfully.", nil)

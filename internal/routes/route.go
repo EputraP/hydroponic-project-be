@@ -3,6 +3,7 @@ package routes
 import (
 	handlerAdmin "hydroponic-be/internal/handler/admin"
 	handlerGrowing "hydroponic-be/internal/handler/growing"
+	handlerTransaction "hydroponic-be/internal/handler/transaction"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,14 +16,17 @@ type HandlersAdmin struct {
 	AssetType *handlerAdmin.AssetTypeHandler
 	Asset     *handlerAdmin.AssetHandler
 }
-
 type HandlersGrowing struct {
 	PlantGrowth             *handlerGrowing.PlantGrowthHandler
 	UnhealthyPlantTreatment *handlerGrowing.UnhealthyPlantTreatmentHandler
 }
+type HandlersTransaction struct {
+	AssetOpsTransaction *handlerTransaction.AssetOpsTransactionHandler
+}
 type Handlers struct {
-	Admin   HandlersAdmin
-	Growing HandlersGrowing
+	Admin       HandlersAdmin
+	Growing     HandlersGrowing
+	Transaction HandlersTransaction
 }
 
 type Middlewares struct {
@@ -32,4 +36,5 @@ func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 
 	RoutesAdmin(srv, h.Admin, middlewares)
 	RoutesGrowing(srv, h.Growing, middlewares)
+	RoutesTransaction(srv, h.Transaction, middlewares)
 }

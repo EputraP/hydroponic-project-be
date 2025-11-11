@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" version="28.2.8" pages="3">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="28.2.9" pages="3">
   <diagram name="ERD" id="Xc9jKKddfSdabT4HmGgu">
     <mxGraphModel dx="1123" dy="1810" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -1339,7 +1339,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="qR8XuXgVB1HrxnmtLpnl" name="High-Level">
-    <mxGraphModel dx="1677" dy="1623" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="715" dy="452" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1347,7 +1347,7 @@
           <mxGeometry x="20" y="220" width="1380" height="1380" as="geometry" />
         </mxCell>
         <mxCell id="GjOt3eIChjTdCmWipE1Y-4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="-440" y="-460" width="1380" height="110" as="geometry" />
+          <mxGeometry x="20" y="110" width="1380" height="110" as="geometry" />
         </mxCell>
         <mxCell id="OW_90poWL7OtgeBhW2wj-1" value="Hydroponic-System" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
           <mxGeometry x="580" y="40" width="120" height="60" as="geometry" />
@@ -1406,22 +1406,25 @@
         <mxCell id="R62aEvgbnmYBQHOcL_t_-1" value="Investation" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="1170" y="150" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-1" value="Growth Monitoring Log" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-1" value="Growth Monitoring Log" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="270" y="330" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-2" value="Overview" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-2" value="Overview" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="870" y="250" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-3" value="Water Consumtion" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-3" value="Water Consumtion" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="870" y="330" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-4" value="Electricity Consumtion" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-4" value="Electricity Consumtion" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="870" y="410" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-5" value="RoI, EBITDA,dll" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-5" value="RoI, EBITDA,dll" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1180" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-6" value="Product transaction" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="ZJI8Kyq0NBKfuZZJwkfE-6" value="Product transaction" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="580" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ycoja2Dz_QD5D66uhTQH-1" value="Assets ops transaction log" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="580" y="330" width="120" height="60" as="geometry" />
         </mxCell>
       </root>

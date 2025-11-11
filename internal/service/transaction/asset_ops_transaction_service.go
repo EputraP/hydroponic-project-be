@@ -11,6 +11,7 @@ import (
 
 type AssetOpsTransactionService interface {
 	CreateAssetOpsTransaction(input *dto.AssetOpsTransaction) (*dto.AssetOpsTransaction, error)
+	GetAssetOpsTransaction() (*[]model.AssetOpsTransaction, error)
 }
 
 type assetOpsTransactionService struct {
@@ -69,4 +70,19 @@ func (s *assetOpsTransactionService) CreateAssetOpsTransaction(input *dto.AssetO
 		Value:   createdAssetOps.Value,
 		Cycle:   createdAssetOps.Cycle,
 	}, nil
+}
+
+func (s *assetOpsTransactionService) GetAssetOpsTransaction() (*[]model.AssetOpsTransaction, error) {
+	logger.Info("assetOpsTransactionService", "Init GetAssetOpsTransaction Service", nil)
+
+	res, err := s.assetOpsTransactionRepo.GetAssetOpsTransaction()
+	if err != nil {
+		logger.Error("plantGrowthService", "Failed to fetch GetAssetOpsTransaction Repo", map[string]string{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+
+	logger.Info("assetOpsTransactionService", "Finished GetAssetOpsTransaction Service", map[string]string{})
+	return res, nil
 }

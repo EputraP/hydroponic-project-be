@@ -50,3 +50,19 @@ func (h *AssetOpsTransactionHandler) CreateAssetOpsTransaction(c *gin.Context) {
 
 	response.JSON(c, 201, "Create Asset Ops Record Success", resp)
 }
+
+func (h *AssetOpsTransactionHandler) GetAssetOpsTransaction(c *gin.Context) {
+
+	logger.Info("AssetOpsTransactionHandler", "Init GetAssetOpsTransaction handler", nil)
+
+	resp, err := h.assetOpsTransactionService.GetAssetOpsTransaction()
+	if err != nil {
+		logger.Error("AssetOpsTransactionHandler", "Failed to execute GetAssetOpsTransaction Service", map[string]string{
+			"error": err.Error(),
+		})
+		response.Error(c, 400, err.Error())
+		return
+	}
+
+	response.JSON(c, 200, "GetAssetOpsTransaction Success", resp)
+}

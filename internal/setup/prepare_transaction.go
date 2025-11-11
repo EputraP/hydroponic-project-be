@@ -9,9 +9,11 @@ import (
 func prepareTransaction(db *DBs) (handlers routes.HandlersTransaction) {
 
 	assetOpsTransactionRepo := *db.Transaction.AssetOpsTransactionRepo
+	assetRepo := *db.Admin.AssetRepo
 
 	assetOpsTransactionService := service.NewAssetOpsTransactionService(service.AssetOpsTransactionServiceConfig{
 		AssetOpsTransactionRepo: assetOpsTransactionRepo,
+		AssetRepo:               assetRepo,
 	})
 
 	assetOpsTransactionHandler := handler.NewAssetOpsTransactionHandler(handler.AssetOpsTransactionHandlerConfig{

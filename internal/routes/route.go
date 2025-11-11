@@ -24,8 +24,9 @@ type HandlersTransaction struct {
 	AssetOpsTransaction *handlerTransaction.AssetOpsTransactionHandler
 }
 type Handlers struct {
-	Admin   HandlersAdmin
-	Growing HandlersGrowing
+	Admin       HandlersAdmin
+	Growing     HandlersGrowing
+	Transaction HandlersTransaction
 }
 
 type Middlewares struct {
@@ -35,4 +36,5 @@ func Build(srv *gin.Engine, h Handlers, middlewares Middlewares) {
 
 	RoutesAdmin(srv, h.Admin, middlewares)
 	RoutesGrowing(srv, h.Growing, middlewares)
+	RoutesTransaction(srv, h.Transaction, middlewares)
 }
